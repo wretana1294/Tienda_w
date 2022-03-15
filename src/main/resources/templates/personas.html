@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- Pagina Index de los videos del Profe -->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Personas</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1 th:text="${titulo}">Personas</h1>
+        <a th:href="@{/nuevaPersona}">Nueva Persona</a>
+        <div th:if="${personas!= null and !personas.empty}"><!-- verifica personas, si no está vacía o nula, ejecuta el código dentro del div  -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>1er Apellido</th>
+                        <th>2do Apellido</th>
+                        <th>Correo</th>
+                        <th>Telefono</th>
+                        <th>Modificar</th>
+                    </tr>
+                </thead>
+                <th:block th:each="user : ${personas}">
+                    <tr>
+                        <td th:text="${user.getNombre}"></td>
+                        <td th:text="${user.getApellido1}"></td>
+                        <td th:text="${user.getApellido2}"></td>
+                        <td th:text="${user.getEmail}"></td>
+                        <td th:text="${user.getTelefono}"></td>
+                        <td><a th:href="@{/modificarPersona/} + ${user.getId}">Modificar</a></td>
+                        <!--<td>
+                            <a th:href="@{/delete/{id} (id-${user.getId})}">Delete</a>
+                        </td> -->
+                    </tr>
+                </th:block>
+            </table>
+        </div>
+        <div th:if="${personas ==null or personas.empty}">
+            No tenemos lista de clientes para mostrar.
+        </div>
+    </body>
+</html>
