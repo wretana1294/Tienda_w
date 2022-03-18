@@ -10,7 +10,11 @@
 body {
     margin:0;
     padding:0;
+<<<<<<< HEAD
     background: linear-gradient(#e66465, #9198e5);
+=======
+    background: linear-gradient (120deg, #6509BC, #E6B8FA);
+>>>>>>> origin/master
     height: 100vh;
     overflow: hidden;
 }
