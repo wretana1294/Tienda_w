@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+            
+        
+    </head>
+    <body>
+         <div class="container">
+        <form th:object="${persona}"th:action="@{/save}" method="POST">
+            
+            <div class="form-group-row">
+
+                <input type="text" name="ID" th:field="*{id}" placeholder="ID"/> 
+                <label for="ID">ID</label>
+                <br>                
+                <label for="nombre">Nombre</label>                
+                <input type="text" name="nombre" th:field="*{nombre}" placeholder="Nombre"/>
+                <br>
+                <label for="apellido1">Apellido 1</label>
+                <input type="text" name="apellido1" th:field="*{apellido1}" placeholder="Apellido 1"/>
+                <br>
+                <label for="apellido2">Apellido 2</label>
+                <input type="text" name="apellido2" th:field="*{apellido2}" placeholder="Apellido 2"/> 
+                <br>
+                <label for="correo">Correo</label>
+                <input type="text" name="correo" th:field="*{correo}" placeholder="Correo"/> 
+                <br>   
+                <label for="apellido2">Telefono</label>
+                <input type="text" name="telefono" th:field="*{telefono}" placeholder="Telefono"/> 
+                <br> 
+                <label for="pais">País</label>
+                <input type="text" name="pais" th:field="*{pais}" placeholder="País"/> 
+                <br> 
+                <button type="submit" value="Guardar">Submit</button>
+            </div>    
+        </form>
+    </body>
+</html>

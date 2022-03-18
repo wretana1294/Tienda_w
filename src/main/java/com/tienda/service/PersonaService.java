@@ -35,13 +35,15 @@ public class PersonaService implements iPersonaService{
 
     @Override
     @Transactional(readOnly=true)
-    public Persona getPersonById(Persona persona) {
-        return personaRepository.findById(persona.getId()).orElse(null);
+    public Persona getPersonById(Long id) {
+        return personaRepository.findById(id).orElse(null);
     }
 
     @Override
-    @Transactional
-    public void delete(Persona persona) {
-        personaRepository.delete(persona);
+    public void delete(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-}
+
+ }
+
+
