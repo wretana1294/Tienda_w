@@ -80,4 +80,12 @@ public class Persona implements Serializable{
     public void setEmail(String email){
         this.email=email;
     }
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    } 
 }

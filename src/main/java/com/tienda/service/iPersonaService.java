@@ -18,4 +18,5 @@ public interface iPersonaService {
     public void savePerson(Persona persona); //permite guardar personas dentro de la BD
     public Persona getPersonById(Long id); //devuelve objeto Persona mediante el id pasado
     public void delete(Long id);//elimina un registro usando el id
+    public Persona findByNombre(String Nombre);
 }

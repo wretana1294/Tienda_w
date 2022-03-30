@@ -8,7 +8,7 @@
     </head>
     <body>
         <h1 th:text="${titulo}">Personas</h1>
-        <a th:href="@{/nuevaPersona}">Nueva Persona</a>
+        <a th:href="@{/nuevaPersona}">Nueva Persona</a><!<!-- enlace para crear una persona nueva -->
         <div th:if="${personas!= null and !personas.empty}"><!-- verifica personas, si no está vacía o nula, ejecuta el código dentro del div  -->
             <table>
                 <thead>
@@ -18,6 +18,8 @@
                         <th>2do Apellido</th>
                         <th>Correo</th>
                         <th>Telefono</th>
+                        <th>Pais</th>
+                        <th>Editar</th>
                         <th>Modificar</th>
                     </tr>
                 </thead>
@@ -28,10 +30,14 @@
                         <td th:text="${user.getApellido2}"></td>
                         <td th:text="${user.getEmail}"></td>
                         <td th:text="${user.getTelefono}"></td>
+                        <td th:text="${user.getPais.getPais}"></td>
                         <td><a th:href="@{/modificarPersona/} + ${user.getId}">Modificar</a></td>
-                        <!--<td>
+                        <td>
+                            <a th:href="@{/editPersona/{id} (id-${user.getId})}">Edit</a>
+                        </td>
+                        <td>
                             <a th:href="@{/delete/{id} (id-${user.getId})}">Delete</a>
-                        </td> -->
+                        </td>
                     </tr>
                 </th:block>
             </table>

@@ -12,5 +12,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author Carlitos
  */
 public interface PersonaRepository extends CrudRepository<Persona,Long> {
-    
+    Persona findByNombre(String nombre);
 }
