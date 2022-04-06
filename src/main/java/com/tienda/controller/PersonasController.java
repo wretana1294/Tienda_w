@@ -51,7 +51,7 @@ public class PersonasController {
     @GetMapping("/delete/{id}")
     public String eliminarPersona(@PathVariable("id") Long idPersona) {
         personaService.delete(idPersona);
-        return "redirect:/persona";
+        return "redirect:/personas";
     }
 }
 

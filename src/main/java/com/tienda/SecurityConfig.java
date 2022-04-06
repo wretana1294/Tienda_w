@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,25 +33,42 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
     
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception{
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth
-                .inMemoryAuthentication()
-                .withUser("admin")
-                .password("123") /*-->omite encripcion y solo toma en cuenta el 123*/
-                .roles("ADMIN", "VENDEDOR", "USER")
-                .and()
-                .withUser("vendedor")
-                .password("{noop}123") /*-->omite encripcion y solo toma en cuenta el 123*/
-                .roles("VENDEDOR", "USER")  
-                .and()
-                .withUser("user")
-                .password("{noop}123") /*-->omite encripcion y solo toma en cuenta el 123*/
-                .roles("USER");                      
+    @Bean
+    DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        daoAuthenticationProvider.setUserDetailsService(this.userDetailsService);
+
+        return daoAuthenticationProvider;
+    }
+
+    public SecurityConfig(UserService userPrincipalDetailsService) {
+        this.userDetailsService = userPrincipalDetailsService;
     }
     
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth)
+//            throws Exception{
+//        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//        auth
+//                .inMemoryAuthentication()
+//                .withUser("admin")
+//                .password("123") /*-->omite encripcion y solo toma en cuenta el 123*/
+//                .roles("ADMIN", "VENDEDOR", "USER")
+//                .and()
+//                .withUser("vendedor")
+//                .password("{noop}123") /*-->omite encripcion y solo toma en cuenta el 123*/
+//                .roles("VENDEDOR", "USER")  
+//                .and()
+//                .withUser("user")
+//                .password("{noop}123") /*-->omite encripcion y solo toma en cuenta el 123*/
+//                .roles("USER");                      
+//    }
+    
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth){
+        auth.authenticationProvider(authenticationProvider());
+    }
     
     //metodo para realizar autorización de accesos
     @Override
@@ -64,7 +82,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyRole("USER", "VENDEDOR", "ADMIN")
                 .and()
                 .formLogin()
-                .and()
-                .exceptionHandling().accessDeniedPage("/errores/403");
+                .loginProcessingUrl("/signin").permitAll();
     }           
 }
